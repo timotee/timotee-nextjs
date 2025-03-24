@@ -1,8 +1,18 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
-  basePath: '/timotee-nextjs',
-  assetPrefix: '/timotee-nextjs/'
-};
+// @ts-check
+import { PHASE_DEVELOPMENT_SERVER } from 'next/constants'
 
-export default nextConfig;
+const NextConfig = (phase: string) : NextConfig => {
+  const isDev = phase === PHASE_DEVELOPMENT_SERVER
+  /**
+   * @type {import('next').NextConfig}
+   */
+  const nextConfig = {
+    basePath: isDev ? undefined : '/timotee-nextjs',
+    assetPrefix: isDev ? undefined : 'https://timotee.github.io/timotee-nextjs/',
+  }
+  return nextConfig
+}
+
+export default NextConfig;
